@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugins>
+
+    <plugin id="#package" url="http://plugin.synesthesia.it/#filename" version="#version" />
+
+</plugins>
+
