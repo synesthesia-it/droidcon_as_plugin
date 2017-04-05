@@ -1,0 +1,38 @@
+# GRADLE
+.gradle
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
+.DS_Store
+._.DS_Store
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+build
+.idea
+*.iml
+
+# output file generated for plugin updates 
+updatePluginsOutput.xml

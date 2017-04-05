@@ -1,0 +1,16 @@
+<!--Copy this file from ~/Library/Preferences/IdeaIC2016.3/templates -->
+
+<templateSet group="Droidcon">
+  <template name="ex" value="String a = &quot;Droidcon IT&quot;;" description="Example of using live template" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_CODE" value="true" />
+    </context>
+  </template>
+  <template name="tv" value="&lt;TextView&#10;    android:id=&quot;@+id/$ID$&quot;&#10;    android:layout_width=&quot;wrap_content&quot;&#10;    android:layout_height=&quot;wrap_content&quot;&#10;    android:text=&quot;$TEXT$&quot;/&gt;" description="TextView in xml file" toReformat="false" toShortenFQNames="true">
+    <variable name="ID" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="XML" value="true" />
+    </context>
+  </template>
+</templateSet>

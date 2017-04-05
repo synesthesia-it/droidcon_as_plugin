@@ -1,0 +1,74 @@
+<idea-plugin version="2">
+    <id>it.droidcon.androidstudioplugin</id>
+    <name>Droidcon Example</name>
+    <version>1.0.0</version>
+    <vendor email="info@synesthesia.it" url="http://www.synesthesia.it">Synesthesia</vendor>
+    <description><![CDATA[Example of using an Android Studio Plugin for the Android Development.]]></description>
+
+    <change-notes><![CDATA[
+        * First version.
+        <br />
+    ]]>
+    </change-notes>
+
+
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+    <depends>org.jetbrains.android</depends>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+
+        <!--Necessary for delivery Live Templates into the plugin-->
+        <defaultLiveTemplatesProvider implementation="it.droidcon.androidstudioplugin.livetemplates.DroidconLiveTemplateProvider"/>
+
+    </extensions>
+
+
+    <!--actions provided by the plugin  -->
+    <actions>
+
+        <!-- Toolbar menu -->
+        <group id="DroidconPlugin.Menu"
+               text="_Droidcon Example"
+               description="Droidcon toolbar menu">
+
+            <add-to-group group-id="MainMenu" anchor="last"/>
+
+            <action id="DroidconPlugin.NewProject"
+                    class="it.droidcon.androidstudioplugin.actions.NewProjectAction"
+                    text="_New Project"
+                    description="Create a new Syn Android Project"/>
+        </group>
+
+        <!-- Contextual menu -->
+        <group id="DroidconPlugin.NewMenu">
+
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewElement"/>
+
+            <group id="DroidconPlugin.NewMenu.Droidcon"
+                   popup="true"
+                   text="_Droidcon"
+                   icon="/icons/icon_blue_droid.png"
+                   description="Droidcon menu">
+
+                <action id="DroidconPlugin.NewMenu.Droidcon.NewClass"
+                        class="it.droidcon.androidstudioplugin.actions.HelloWorldAction"
+                        text="_Hello world class"
+                        description="Create a new empty class"/>
+
+                <action id="DroidconPlugin.NewMenu.Droidcon.ThreadExample"
+                        class="it.droidcon.androidstudioplugin.actions.ThreadAction"
+                        text="_Simple thread example"
+                        description="Simple example of thread management" />
+
+                <action id="DroidconPlugin.NewMenu.Droidcon.Template"
+                        class="it.droidcon.androidstudioplugin.actions.TemplateActivityAction"
+                        text="_Template Example"
+                        description="An example of template integration inside a plugin"/>
+            </group>
+        </group>
+
+    </actions>
+
+</idea-plugin>

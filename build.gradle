@@ -1,0 +1,85 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+    }
+    dependencies {
+        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+        classpath 'org.apache.httpcomponents:httpmime:4.5.2'
+        classpath "org.jetbrains.intellij.plugins:gradle-intellij-plugin:0.2.0-SNAPSHOT"
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
+
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+
+group project.GROUP
+version project.VERSION
+
+
+Properties properties = new Properties()
+File localPropertiesFile = new File('local.properties')
+def androidStudioPath = '/mnt/tools/androidstudio'
+if (localPropertiesFile.exists()) {
+    def localProperties = project.rootProject.file('local.properties').newDataInputStream()
+    properties.load(localProperties)
+    androidStudioPath = properties.getProperty('ANDROID_STUDIO_PATH')
+}
+
+intellij {
+    version 'IC-2016.3'
+    type 'AI'
+    alternativeIdePath androidStudioPath
+    pluginName project.PLUGIN_NAME
+    downloadSources false
+    updateSinceUntilBuild false
+    sameSinceUntilBuild false
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'commons-io:commons-io:2.4'
+}
+
+
+
+project.afterEvaluate {
+
+    prepareSandbox.doLast {
+        copy {
+            from 'templates'
+            into "build/idea-sandbox/plugins/" + project.PLUGIN_NAME + "/templates"
+            include '**/*'
+        }
+    }
+
+    buildPlugin.doLast {
+        File zipFile = project.tasks.findByName("buildPlugin").outputs.files[0]
+
+        File template = new File('updatePlugins_tmpl.xml')
+        String templateContent = new StringBuffer(template.text.toString())
+        templateContent = templateContent.replaceAll("#package", GROUP)
+        templateContent = templateContent.replaceAll("#filename", zipFile.getName())
+        templateContent = templateContent.replaceAll("#version", VERSION)
+
+        File output = new File('build/distributions/updatePlugins.xml')
+        output.getParentFile().mkdir()
+        output.createNewFile()
+        output.text = templateContent
+    }
+}
+

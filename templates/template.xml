@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<template
+    format="5"
+    revision="5"
+    name="Droidcon Activity"
+    minApi="10"
+    minBuildApi="10"
+    description="This is an example of template usage">
+
+    <category value="Droidcon" />
+
+    <formfactor value="Mobile" />
+
+
+
+    <parameter
+        id="packageName"
+        name="Package name"
+        type="string"
+        constraints="package"
+        default="com.mycompany.myapp" />
+
+    <parameter
+        id="activityName"
+        name="Title"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="TemplateActivity"
+        help="Don't add &quot;Activity&quot; to Activity Name, write just the name" />
+
+    <parameter
+            id="superClass"
+            name="Super Class"
+            type="enum"
+            default="AppCompatActivity"
+            constraints="class|unique|nonempty"
+            help="The name of the super class to use">
+            <option id="Activity">Activity</option>
+            <option id="AppCompatActivity">AppCompatActivity</option>
+    </parameter>
+
+    <parameter
+            id="isOrientationPortrait"
+            name="Portrait Orientation"
+            type="boolean"
+            default="true"
+            help="This activity will be in portrait mode." />
+
+    <parameter
+            id="isLauncher"
+            name="Launcher Activity"
+            type="boolean"
+            default="false"
+            help="If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher" />
+
+    <parameter
+            id="setExtraText"
+            name="Add Extra Text"
+            type="boolean"
+            default="false"
+            help="Adds text to the text view in the activity" />
+
+    <parameter
+            id="extraText"
+            name="Extra Text"
+            type="string"
+            default="Example Extra Text"
+            help="Extra text to be set in the text view in the activity"
+            visibility="setExtraText" />
+
+
+
+    <!-- 128x128 thumbnails relative to template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>template_base_back_activity.png</thumb>
+        <thumb superClass="Activity">template_base_activity.png</thumb>
+        <thumb superClass="AppCompatActivity">template_base_back_activity.png</thumb>
+    </thumbs>
+
+
+
+    <globals file="globals.xml.ftl" />
+
+    <execute file="recipe.xml.ftl" />
+
+</template>
